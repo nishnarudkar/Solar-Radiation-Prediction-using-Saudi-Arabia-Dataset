@@ -43,6 +43,7 @@ We trained and compared the following models:
 
 ### 📈 Evaluation Metrics:
 - MAE (Mean Absolute Error)
+- MSE (Mean Squared Error)
 - RMSE (Root Mean Squared Error)
 - R² Score
 - Training Time
