@@ -154,11 +154,10 @@ Open your browser and navigate to [http://localhost:5000](http://localhost:5000)
 ---
 
 ## 👨‍💻 Team Members
-
-- https://github.com/Metzo64
-- https://github.com/Vatsal211005
--https://github.com/nishnarudkar
--@Aamir Sarang
+- [Nishant Narudkar] https://github.com/nishnarudkar
+- [Maitreya Pawar] https://github.com/Metzo64
+- [Vatsal Parmar] https://github.com/Vatsal211005
+- @Aamir Sarang
 ---
 
 ## 🙏 Acknowledgements
