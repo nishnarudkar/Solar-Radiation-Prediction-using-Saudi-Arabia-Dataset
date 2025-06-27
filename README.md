@@ -108,7 +108,7 @@ The user inputs these features via the interface and gets the predicted GHI in r
 
 ## Demo Video
 
-Watch the demo video of the website [click_here](Demo_video.mp4).  
+Watch the demo video of the website [Youtube_Link](https://youtu.be/jLimPXA7apc).  
 
 ---
 
@@ -130,7 +130,7 @@ Watch the demo video of the website [click_here](Demo_video.mp4).
    git clone https://github.com/yourusername/solar-radiation-prediction.git
    cd solar-radiation-prediction
 
-2.## Installation
+2.**Installation**
 
 ### Install Dependencies:
 ```bash
