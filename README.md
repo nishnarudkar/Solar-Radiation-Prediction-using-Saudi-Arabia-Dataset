@@ -141,7 +141,7 @@ python app.py
 ```
 
 ### Open the Application:
-Open your browser and navigate to [http://localhost:5000](http://localhost:5000).
+Open your browser and navigate to (https://solar-radiation-prediction-using-saudi.onrender.com)).
 
 ---
 
