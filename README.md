@@ -27,7 +27,8 @@ The goal of this project is to forecast **GHI (Global Horizontal Irradiance)** u
   - Scikit-learn  
   - Keras  
   - Pandas, NumPy, Matplotlib  
-  - Flask (for backend) 
+  - Flask (for backend)
+- **Hosting:** Render
 ---
 
 ## 🤖 Model Training
@@ -59,6 +60,7 @@ We trained and compared the following models:
 
 We deployed the final model using:
 - **Model:** Linear Regression (due to low error & fast computation)
+- **Hosting:** Render
 - **Backend:** Flask
 - **Frontend:** HTML, CSS, JS
 - **Inputs:**  
@@ -141,7 +143,7 @@ python app.py
 ```
 
 ### Open the Application:
-Open your browser and navigate to (https://solar-radiation-prediction-using-saudi.onrender.com)).
+Open your browser and navigate to (https://solar-radiation-prediction-using-saudi.onrender.com).
 
 ---
 
@@ -150,7 +152,6 @@ Open your browser and navigate to (https://solar-radiation-prediction-using-saud
 - Train deep learning sequential models for time-series forecasting.
 - Extend the solution to other countries/regions.
 - Improve the UI/UX of the web interface.
-- Deploy using a cloud service (e.g., AWS, Heroku, or Streamlit Cloud).
 
 ---
 
