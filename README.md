@@ -93,8 +93,8 @@ The user inputs these features via the interface and gets the predicted GHI in r
 ### Home Page
 ![Home Page](Screenshots/homepage.jpg)
 
-### Map Visualization
-![Map Visualization](Screenshots/Station_comparison.jpg)
+### Features Comparison
+![Features_Comparison](Screenshots/Map Visualization.jpg)
 
 ### Station Comparison
 ![Station Comparsion](Screenshots/Station_comparison.jpg)
