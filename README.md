@@ -100,7 +100,7 @@ The user inputs these features via the interface and gets the predicted GHI in r
 ![Station Comparsion](Screenshots/Station_comparison.jpg)
 
 ### Prediction Results
-![Prediction Results](screenshots/prediction_results.png)
+![Prediction Results](Screenshots/Predictions.jpg)
 
 ---
 
