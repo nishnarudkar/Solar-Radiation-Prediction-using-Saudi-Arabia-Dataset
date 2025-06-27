@@ -94,7 +94,7 @@ The user inputs these features via the interface and gets the predicted GHI in r
 ![Home Page](screenshots/home_page.png)
 
 ### Map Visualization
-![Map Visualization](screenshots/map_visualization.png)
+![Map Visualization]([screenshots/map_visualization.png](https://github.com/nishnarudkar/Solar-Radiation-Prediction-using-Saudi-Arabia-Dataset/blob/main/Screenshots/Map%20Visualization.jpg))
 
 ### Station Details
 ![Station Details](screenshots/station_details.png)
