@@ -108,7 +108,7 @@ The user inputs these features via the interface and gets the predicted GHI in r
 
 ## Demo Video
 
-Watch the demo video of the website [here](https://www.youtube.com/watch?v=example).  
+Watch the demo video of the website [click_here](Demo_video.mp4).  
 
 ---
 
