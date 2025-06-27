@@ -148,7 +148,7 @@ Open your browser and navigate to (https://solar-radiation-prediction-using-saud
 ---
 
 🔗 **Related Repositories**:
-- 🔬 [Model Training & Evaluation Repo](https://github.com/nishnarudkar/solar-radiation-ml-models)
+- 🔬 [Model Training & Evaluation Repo](https://github.com/nishnarudkar/Solar_Radiation_ML_Models)
 - 🌐 [Web App Deployment Repo](https://github.com/nishnarudkar/Solar-Radiation-Prediction-using-Saudi-Arabia-Dataset)
 
 ---
