@@ -96,8 +96,8 @@ The user inputs these features via the interface and gets the predicted GHI in r
 ### Map Visualization
 ![Map Visualization](Screenshots/Map Visualization.jpg)
 
-### Station Details
-![Station Details](screenshots/station_details.png)
+### Station Comparison
+![Station Comparsion](Screenshots/Station_comparison.jpg)
 
 ### Prediction Results
 ![Prediction Results](screenshots/prediction_results.png)
