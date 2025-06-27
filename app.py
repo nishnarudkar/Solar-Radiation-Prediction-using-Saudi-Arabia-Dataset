@@ -27,12 +27,11 @@ def load_dataset():
 def load_model_and_scaler():
     try:
         # Load the model
-        model_path = r"Main Model ( Deployed model)\linear_regression_model.pkl"
+        model_path = os.path.join("model", "linear_regression_model.pkl")
         model = joblib.load(model_path)
         print("Model loaded successfully")
-        
         # Load the standard scaler
-        scaler_path = r"Main Model ( Deployed model)\linear_regression_standard_scaler.pkl"
+        scaler_path = os.path.join("model", "linear_regression_standard_scaler.pkl")
         scaler = joblib.load(scaler_path)
         print("Scaler loaded successfully")
         
