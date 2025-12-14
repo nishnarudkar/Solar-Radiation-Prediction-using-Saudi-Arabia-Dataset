@@ -1,17 +1,17 @@
 
-# ☀️ Solar Radiation Prediction using Saudi Arabia Dataset
+#  Solar Radiation Prediction using Saudi Arabia Dataset
 
 This project predicts **Global Horizontal Irradiance (GHI)** using historical weather data from Saudi Arabia. It uses Machine Learning models to build an accurate forecasting system and deploys it as a web application for real-time GHI prediction.
 
 ---
 
-## 📖 Project Overview
+##  Project Overview
 
 The goal of this project is to forecast **GHI (Global Horizontal Irradiance)** using machine learning models trained on **Saudi Arabia weather data (2015–2020)**. Accurate solar radiation prediction is critical for solar energy planning, grid optimization, and sustainable energy development.
 
 ---
 
-## 📊 Dataset
+##  Dataset
 
 - **Source:** [Saudi Open Data Portal](https://open.data.gov.sa/)
 - **Records:** 2018 (from 57 weather stations)
@@ -20,7 +20,7 @@ The goal of this project is to forecast **GHI (Global Horizontal Irradiance)** u
 
 ---
 
-## 🛠 Technologies Used
+##  Technologies Used
 
 - **Languages:** Python, HTML, CSS, JavaScript  
 - **Libraries/Frameworks:**  
@@ -31,10 +31,10 @@ The goal of this project is to forecast **GHI (Global Horizontal Irradiance)** u
 - **Hosting:** Render
 ---
 
-## 🤖 Model Training
+##  Model Training
 
 We trained and compared the following models:
-- Linear Regression (LR) ✅ *(used in deployment)*
+- Linear Regression (LR)  *(used in deployment)*
 - K-Nearest Neighbors (KNN)
 - Support Vector Regression (SVR)
 - Decision Tree (DT)
@@ -43,7 +43,7 @@ We trained and compared the following models:
 - XGBoost
 - Histogram Gradient Boosting (HGB)
 
-### 📈 Evaluation Metrics:
+###  Evaluation Metrics:
 - MAE (Mean Absolute Error)
 - MSE (Mean Squared Error)
 - RMSE (Root Mean Squared Error)
@@ -55,8 +55,24 @@ We trained and compared the following models:
 - 43-Fold (Leave-one-station-out)
 
 ---
+##  Model Selection Strategy
 
-## 🌐 Web Deployment
+Multiple regression models were evaluated and tracked using **Weights & Biases (W&B)**, including
+Linear Regression, Random Forest, Decision Tree, KNN, SVR, XGBoost, ANN, and Histogram Gradient Boosting.
+
+Models were automatically ranked using a composite score that balances:
+- Prediction accuracy (RMSE, R²)
+- Inference latency (testing time)
+
+Although some complex models achieved comparable accuracy, **Linear Regression** provided the best
+accuracy–latency trade-off and was therefore selected for deployment.
+
+ Full experiment tracking and interactive dashboards are available on:
+https://wandb.ai/nishnarudkar-d-y-patil-university/solar-radiation-prediction
+
+Weights & Biases Report: https://api.wandb.ai/links/nishnarudkar-d-y-patil-university/l4xo0wax
+
+##  Web Deployment
 
 We deployed the final model using:
 - **Model:** Linear Regression (due to low error & fast computation)
@@ -147,13 +163,13 @@ Open your browser and navigate to (https://solar-radiation-prediction-using-saud
 
 ---
 
-🔗 **Related Repositories**:
-- 🔬 [Model Training & Evaluation Repo](https://github.com/nishnarudkar/Solar_Radiation_ML_Models)
-- 🌐 [Web App Deployment Repo](https://github.com/nishnarudkar/Solar-Radiation-Prediction-using-Saudi-Arabia-Dataset)
+ **Related Repositories**:
+-  [Model Training & Evaluation Repo](https://github.com/nishnarudkar/Solar_Radiation_ML_Models)
+-  [Web App Deployment Repo](https://github.com/nishnarudkar/Solar-Radiation-Prediction-using-Saudi-Arabia-Dataset)
 
 ---
 
-## 🔮 Future Work
+##  Future Work
 
 - Train deep learning sequential models for time-series forecasting.
 - Extend the solution to other countries/regions.
@@ -161,18 +177,23 @@ Open your browser and navigate to (https://solar-radiation-prediction-using-saud
 
 ---
 
-## 👨‍💻 Team Members
+##  Team Members
 - [Nishant Narudkar] https://github.com/nishnarudkar
 - [Maitreya Pawar] https://github.com/Metzo64
 - [Vatsal Parmar] https://github.com/Vatsal211005
 - @Aamir Sarang
 ---
 
-## 🙏 Acknowledgements
+##  Acknowledgements
 
 We are grateful to our guide **Mr. Pramod H. Kachare** for his invaluable support and guidance throughout this project.
 
 ---
+
+## Dedicated Articles
+
+- AWS Builder Center Article - (builder.aws.com/content/36qXvwTipuNwbZMUPf3hQ7n2IS0/from-experiment-tracking-to-automated-model-selection-a-solar-radiation-prediction-pipeline)
+- Medium Article - (https://medium.com/@nishnarudkar/from-experiment-tracking-to-automated-model-selection-a-practical-ml-workflow-cf193d1b1098)
 
 ## 📄 License
 
