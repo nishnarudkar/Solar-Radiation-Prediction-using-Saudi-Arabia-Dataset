@@ -178,10 +178,10 @@ Open your browser and navigate to (https://solar-radiation-prediction-using-saud
 ---
 
 ##  Team Members
-- [Nishant Narudkar] https://github.com/nishnarudkar
-- [Maitreya Pawar] https://github.com/Metzo64
-- [Vatsal Parmar] https://github.com/Vatsal211005
-- @Aamir Sarang
+- [Nishant Narudkar](https://github.com/nishnarudkar)
+- [Maitreya Pawar](https://github.com/Metzo64)
+- [Vatsal Parmar](https://github.com/Vatsal211005)
+- [Aamir Sarang](https://github.com/Aamir-Sarang31)
 ---
 
 ##  Acknowledgements
@@ -192,8 +192,8 @@ We are grateful to our guide **Mr. Pramod H. Kachare** for his invaluable suppor
 
 ## Dedicated Articles
 
-- AWS Builder Center Article - (builder.aws.com/content/36qXvwTipuNwbZMUPf3hQ7n2IS0/from-experiment-tracking-to-automated-model-selection-a-solar-radiation-prediction-pipeline)
-- Medium Article - (https://medium.com/@nishnarudkar/from-experiment-tracking-to-automated-model-selection-a-practical-ml-workflow-cf193d1b1098)
+- [AWS Builder Center Article](builder.aws.com/content/36qXvwTipuNwbZMUPf3hQ7n2IS0/from-experiment-tracking-to-automated-model-selection-a-solar-radiation-prediction-pipeline)
+- [Medium Article](https://medium.com/@nishnarudkar/from-experiment-tracking-to-automated-model-selection-a-practical-ml-workflow-cf193d1b1098)
 
 ## 📄 License
 
