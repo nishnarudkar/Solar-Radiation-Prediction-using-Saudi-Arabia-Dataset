@@ -1,0 +1,7 @@
+﻿services:
+  - type: web
+    name: solar-radiation-prediction
+    env: docker
+    plan: free
+    autoDeploy: true
+    healthCheckPath: /

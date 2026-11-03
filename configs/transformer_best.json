@@ -1,0 +1,10 @@
+{
+    "d_model": 64,
+    "nhead": 4,
+    "num_layers": 2,
+    "dim_feedforward": 48,
+    "dropout": 0.1,
+    "lr": 0.003996295893449778,
+    "weight_decay": 0.00012461313818580035,
+    "batch_size": 16
+}

@@ -1,0 +1,929 @@
+/* ==========================================================================
+   Saudi Arabia Solar Radiation Prediction - Design System
+   Bright Neon Dark Mode (Industry Demo) + Solar Light Mode
+   ========================================================================== */
+
+:root {
+    /* Base & Layout */
+    --bg-body: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --bg-body-solid: #f8fafc;
+    --card-bg: #FFFFFF;
+    --card-border: #E2E8F0;
+    --card-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+
+    /* Primary Cobalt Palette */
+    --primary-color: #1E40AF;
+    --primary-hover: #1D4ED8;
+    --primary-dark: #172554;
+    --primary-light: #EFF6FF;
+    --primary-shadow: rgba(30, 64, 175, 0.25);
+
+    /* Secondary Palette */
+    --secondary-color: #0284C7;
+    --secondary-hover: #0369A1;
+    --secondary-shadow: rgba(2, 132, 199, 0.25);
+
+    /* Typography */
+    --text-main: #2b2f38;
+    --text-heading: #1E293B;
+    --text-muted: #64748B;
+    --title-glow: 1px 1px 3px rgba(30, 64, 175, 0.12);
+
+    /* Form Controls */
+    --input-bg: #FFFFFF;
+    --border-color: #CBD5E1;
+    --border-subtle: #E2E8F0;
+    --range-text-color: #64748B;
+
+    /* Tabs */
+    --tab-nav-bg: #FFFFFF;
+    --tab-border: #E2E8F0;
+    --tab-inactive-color: #475569;
+    --tab-inactive-hover-bg: #EFF6FF;
+    --tab-inactive-hover-color: #1E40AF;
+    --tab-active-bg: #1E40AF;
+    --tab-active-text: #FFFFFF;
+    --tab-active-shadow: 0 2px 8px rgba(30, 64, 175, 0.25);
+
+    /* Buttons */
+    --btn-predict-bg: #1E40AF;
+    --btn-predict-hover: #1D4ED8;
+    --btn-predict-text: #FFFFFF;
+    --btn-predict-shadow: rgba(30, 64, 175, 0.25);
+    
+    --btn-defaults-bg: #0284C7;
+    --btn-defaults-hover: #0369A1;
+    --btn-defaults-text: #FFFFFF;
+    --btn-defaults-shadow: rgba(2, 132, 199, 0.25);
+
+    --btn-scale-active-bg: #1E40AF;
+    --btn-scale-active-text: #FFFFFF;
+    --btn-scale-active-border: #1E40AF;
+
+    /* Map HUD & Overlays */
+    --map-border: #E2E8F0;
+    --map-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    --hud-bg: rgba(255, 255, 255, 0.94);
+    --hud-border: rgba(203, 213, 225, 0.85);
+    --hud-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    --hud-text: #1E293B;
+
+    /* Table */
+    --table-border: #E2E8F0;
+    --table-header-bg: #1E40AF;
+    --table-header-text: #FFFFFF;
+    --table-row-bg: #FFFFFF;
+    --table-row-hover: #EFF6FF;
+    --table-row-text: #334155;
+    --table-cell-border: #F1F5F9;
+
+    /* Prediction Result */
+    --pred-bg: #FFF9DB;
+    --pred-border: #FFE066;
+    --pred-text: #493802;
+    --pred-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+
+    /* Select2 */
+    --select2-choice-bg: #F1F5F9;
+    --select2-choice-border: #CBD5E1;
+    --select2-choice-text: #1E293B;
+    --select2-choice-remove: #64748B;
+    --select2-dropdown-bg: #FFFFFF;
+    --select2-dropdown-border: #CBD5E1;
+    --select2-dropdown-text: #1E293B;
+    --select2-dropdown-hover: #EFF6FF;
+
+    /* Leaflet Popups */
+    --popup-bg: #FFFFFF;
+    --popup-text: #1E293B;
+    --popup-border: #CBD5E1;
+    --popup-shadow: 0 3px 14px rgba(0, 0, 0, 0.2);
+
+    /* Beacon Marker Glow */
+    --beacon-glow: 0 2px 8px rgba(0, 0, 0, 0.45);
+    --beacon-border: #FFFFFF;
+}
+
+/* ==========================================================================
+   Neon Dark Mode (Activated via html.dark)
+   ========================================================================== */
+html.dark {
+    /* Base & Layout */
+    --bg-body: radial-gradient(circle at 50% 0%, #10192e 0%, #080c14 100%);
+    --bg-body-solid: #080c14;
+    --card-bg: rgba(13, 19, 33, 0.90);
+    --card-border: rgba(0, 240, 255, 0.25);
+    --card-shadow: 0 10px 40px rgba(0, 0, 0, 0.7), 0 0 1px rgba(0, 240, 255, 0.4);
+
+    /* Primary Neon Cyan */
+    --primary-color: #00F0FF;
+    --primary-hover: #4df4ff;
+    --primary-dark: #0099aa;
+    --primary-light: rgba(0, 240, 255, 0.12);
+    --primary-shadow: rgba(0, 240, 255, 0.45);
+
+    /* Secondary Electric Magenta */
+    --secondary-color: #FF00E5;
+    --secondary-hover: #ff47ec;
+    --secondary-shadow: rgba(255, 0, 229, 0.45);
+
+    /* Typography */
+    --text-main: #E2E8F0;
+    --text-heading: #F8FAFC;
+    --text-muted: #94A3B8;
+    --title-glow: 0 0 15px rgba(0, 240, 255, 0.6), 0 0 35px rgba(0, 240, 255, 0.25);
+
+    /* Form Controls */
+    --input-bg: rgba(15, 23, 42, 0.85);
+    --border-color: rgba(0, 240, 255, 0.28);
+    --border-subtle: rgba(255, 255, 255, 0.1);
+    --range-text-color: #FFD600;
+
+    /* Tabs */
+    --tab-nav-bg: rgba(13, 19, 33, 0.95);
+    --tab-border: rgba(0, 240, 255, 0.25);
+    --tab-inactive-color: #94A3B8;
+    --tab-inactive-hover-bg: rgba(0, 240, 255, 0.1);
+    --tab-inactive-hover-color: #00F0FF;
+    --tab-active-bg: #00F0FF;
+    --tab-active-text: #080c14;
+    --tab-active-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+
+    /* Buttons */
+    --btn-predict-bg: #00F0FF;
+    --btn-predict-hover: #4df4ff;
+    --btn-predict-text: #080c14;
+    --btn-predict-shadow: rgba(0, 240, 255, 0.5);
+
+    --btn-defaults-bg: #FF00E5;
+    --btn-defaults-hover: #ff47ec;
+    --btn-defaults-text: #FFFFFF;
+    --btn-defaults-shadow: rgba(255, 0, 229, 0.5);
+
+    --btn-scale-active-bg: #00F0FF;
+    --btn-scale-active-text: #080c14;
+    --btn-scale-active-border: #00F0FF;
+
+    /* Map HUD & Overlays */
+    --map-border: rgba(0, 240, 255, 0.3);
+    --map-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 240, 255, 0.15);
+    --hud-bg: rgba(11, 17, 30, 0.92);
+    --hud-border: rgba(0, 240, 255, 0.35);
+    --hud-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 240, 255, 0.2);
+    --hud-text: #00F0FF;
+
+    /* Table */
+    --table-border: rgba(0, 240, 255, 0.25);
+    --table-header-bg: linear-gradient(135deg, #0d2238 0%, #004d66 100%);
+    --table-header-text: #00F0FF;
+    --table-row-bg: rgba(15, 23, 42, 0.75);
+    --table-row-hover: rgba(0, 240, 255, 0.14);
+    --table-row-text: #E2E8F0;
+    --table-cell-border: rgba(255, 255, 255, 0.06);
+
+    /* Prediction Result */
+    --pred-bg: rgba(0, 255, 157, 0.08);
+    --pred-border: #00FF9D;
+    --pred-text: #00FF9D;
+    --pred-shadow: 0 0 25px rgba(0, 255, 157, 0.3), inset 0 0 15px rgba(0, 255, 157, 0.08);
+
+    /* Select2 */
+    --select2-choice-bg: rgba(0, 240, 255, 0.15);
+    --select2-choice-border: rgba(0, 240, 255, 0.4);
+    --select2-choice-text: #00F0FF;
+    --select2-choice-remove: #FF00E5;
+    --select2-dropdown-bg: #0D1321;
+    --select2-dropdown-border: rgba(0, 240, 255, 0.35);
+    --select2-dropdown-text: #E2E8F0;
+    --select2-dropdown-hover: rgba(0, 240, 255, 0.22);
+
+    /* Leaflet Popups */
+    --popup-bg: #0D1321;
+    --popup-text: #E2E8F0;
+    --popup-border: rgba(0, 240, 255, 0.35);
+    --popup-shadow: 0 6px 20px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 240, 255, 0.25);
+
+    /* Beacon Marker Glow (Matches clean, crisp Light Mode style without unwanted green halo) */
+    --beacon-glow: 0 2px 8px rgba(0, 0, 0, 0.65);
+    --beacon-border: #FFFFFF;
+}
+
+/* ==========================================================================
+   Global Base & Typography
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg-body);
+    background-attachment: fixed;
+    font-family: 'Poppins', sans-serif;
+    padding-bottom: 35px;
+    min-height: 100vh;
+    color: var(--text-main);
+    margin: 0;
+    transition: background 0.35s ease, color 0.3s ease;
+}
+
+/* Smooth transitions for theme switching */
+.tab-content,
+.nav-tabs,
+.form-control,
+.form-select,
+.btn,
+.summary-table,
+.summary-table th,
+.summary-table td,
+.prediction-alert,
+.solar-legend,
+.map-toggle-group {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ==========================================================================
+   Header & Theme Toggle Switch
+   ========================================================================== */
+.header-container {
+    padding-top: 0.5rem;
+    position: relative;
+}
+
+.theme-toggle-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--hud-bg);
+    border: 1px solid var(--border-color);
+    padding: 6px 14px;
+    border-radius: 30px;
+    box-shadow: var(--hud-shadow);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 100;
+}
+
+.theme-label-icon {
+    font-size: 1.05rem;
+    user-select: none;
+    line-height: 1;
+}
+
+/* Toggle Switch Pill */
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 26px;
+    margin: 0;
+    cursor: pointer;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.theme-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #CBD5E1;
+    border-radius: 26px;
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-ball {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+.theme-switch input:checked + .theme-slider {
+    background-color: #00F0FF;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
+}
+
+.theme-switch input:checked + .theme-slider .theme-ball {
+    transform: translateX(22px);
+    background-color: #080c14;
+    box-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+}
+
+.theme-mode-text {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    letter-spacing: 0.02em;
+    user-select: none;
+    cursor: pointer;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.theme-mode-left {
+    display: inline-block !important;
+    padding-right: 2px;
+}
+
+.theme-mode-right {
+    display: none !important;
+    padding-left: 2px;
+}
+
+html.dark .theme-mode-left {
+    display: none !important;
+}
+
+html.dark .theme-mode-right {
+    display: inline-block !important;
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+}
+
+@media (max-width: 768px) {
+    .theme-toggle-wrapper {
+        position: static;
+        margin: 0 auto 16px auto;
+        display: inline-flex;
+    }
+}
+
+/* Main Headers */
+.main-header,
+.main-title {
+    color: var(--primary-color);
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0.35rem;
+    font-size: 2.25rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-shadow: var(--title-glow);
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.sub-header,
+.subtitle {
+    color: var(--text-muted);
+    text-align: center;
+    font-size: 0.98rem;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+}
+
+.subtitle .author-name,
+.sub-header .author-name {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+html.dark .subtitle .author-name {
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+}
+
+/* ==========================================================================
+   Navigation Tabs
+   ========================================================================== */
+.nav-tabs {
+    border-bottom: 1px solid var(--tab-border);
+    margin-bottom: 0;
+    background: var(--tab-nav-bg);
+    border-radius: 12px 12px 0 0;
+    padding: 8px 12px 0 12px;
+}
+
+.nav-tabs .nav-link {
+    background: transparent;
+    color: var(--tab-inactive-color);
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 20px;
+    margin-right: 6px;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.nav-tabs .nav-link:hover {
+    color: var(--tab-inactive-hover-color);
+    background-color: var(--tab-inactive-hover-bg);
+}
+
+.nav-tabs .nav-link.active {
+    background-color: var(--tab-active-bg) !important;
+    color: var(--tab-active-text) !important;
+    font-weight: 700;
+    box-shadow: var(--tab-active-shadow);
+}
+
+/* ==========================================================================
+   Main Content Container Card
+   ========================================================================== */
+.tab-content {
+    background: var(--card-bg);
+    padding: 25px 30px;
+    border-radius: 0 0 14px 14px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--card-border);
+    border-top: none;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* ==========================================================================
+   Map & Station Details
+   ========================================================================== */
+.map-wrapper {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--map-shadow);
+    border: 1px solid var(--map-border);
+}
+
+#map {
+    height: 480px;
+    width: 100%;
+    border-radius: 9px;
+    background-color: #0b1120;
+}
+
+.map-status {
+    text-align: center;
+    margin-top: 10px;
+    color: var(--primary-color);
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.section-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-heading);
+    margin-bottom: 1rem;
+}
+
+html.dark .section-title {
+    color: #00F0FF;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.35);
+}
+
+.station-meta-text {
+    font-size: 0.95rem;
+    color: var(--text-main);
+    margin-bottom: 0.45rem;
+}
+
+.station-meta-text strong {
+    color: var(--text-heading);
+}
+
+html.dark .station-meta-text strong {
+    color: #00F0FF;
+}
+
+/* ==========================================================================
+   Form Controls & Inputs
+   ========================================================================== */
+.form-label-custom {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-heading);
+    margin-bottom: 0.25rem;
+    display: block;
+}
+
+html.dark .form-label-custom {
+    color: #E2E8F0;
+}
+
+.form-control, .form-select {
+    border-radius: 7px;
+    border: 1px solid var(--border-color);
+    padding: 0.45rem 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    background-color: var(--input-bg);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem var(--primary-shadow);
+    background-color: var(--input-bg);
+    color: var(--text-main);
+    outline: none;
+}
+
+html.dark .form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2300F0FF' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+.range-text {
+    font-size: 0.76rem;
+    color: var(--range-text-color);
+    margin-top: 0.2rem;
+    display: block;
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   Action Buttons
+   ========================================================================== */
+.btn-predict {
+    background-color: var(--btn-predict-bg);
+    color: var(--btn-predict-text);
+    border: none;
+    border-radius: 22px;
+    padding: 9px 26px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    box-shadow: 0 3px 12px var(--btn-predict-shadow);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.btn-predict:hover {
+    background-color: var(--btn-predict-hover);
+    color: var(--btn-predict-text);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px var(--btn-predict-shadow);
+}
+
+.btn-defaults {
+    background-color: var(--btn-defaults-bg);
+    color: var(--btn-defaults-text);
+    border: none;
+    border-radius: 22px;
+    padding: 9px 24px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    box-shadow: 0 3px 12px var(--btn-defaults-shadow);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.btn-defaults:hover {
+    background-color: var(--btn-defaults-hover);
+    color: var(--btn-defaults-text);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px var(--btn-defaults-shadow);
+}
+
+/* Scale & Mode Toggle Buttons */
+.btn-scale {
+    border: 1px solid var(--border-color);
+    background-color: var(--input-bg);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 4px 14px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.btn-scale:hover {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-scale.active {
+    background-color: var(--btn-scale-active-bg) !important;
+    color: var(--btn-scale-active-text) !important;
+    border-color: var(--btn-scale-active-border) !important;
+    font-weight: 700;
+    box-shadow: 0 2px 10px var(--primary-shadow);
+}
+
+/* ==========================================================================
+   Prediction Output Banner
+   ========================================================================== */
+.prediction-alert {
+    background-color: var(--pred-bg);
+    border: 1px solid var(--pred-border);
+    color: var(--pred-text);
+    padding: 14px 22px;
+    border-radius: 8px;
+    margin-top: 1.25rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    box-shadow: var(--pred-shadow);
+    letter-spacing: 0.01em;
+}
+
+html.dark .prediction-alert {
+    text-shadow: 0 0 10px rgba(0, 255, 157, 0.6);
+}
+
+/* ==========================================================================
+   Summary Statistics Table
+   ========================================================================== */
+.summary-table-container {
+    margin-top: 24px;
+}
+
+.summary-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--table-border);
+}
+
+.summary-table th {
+    background: var(--table-header-bg);
+    color: var(--table-header-text);
+    padding: 12px 16px;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.summary-table td {
+    padding: 12px 16px;
+    text-align: center;
+    background: var(--table-row-bg);
+    border-bottom: 1px solid var(--table-cell-border);
+    font-size: 0.9rem;
+    color: var(--table-row-text);
+}
+
+.summary-table tr:last-child td {
+    border-bottom: none;
+}
+
+.summary-table tr:hover td {
+    background-color: var(--table-row-hover);
+}
+
+/* ==========================================================================
+   Select2 Custom Tag Styling
+   ========================================================================== */
+.select2-container--default .select2-selection--multiple {
+    background-color: var(--input-bg) !important;
+    border-radius: 7px !important;
+    border: 1px solid var(--border-color) !important;
+    min-height: 38px !important;
+    padding: 2px 4px !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem var(--primary-shadow) !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: var(--select2-choice-bg) !important;
+    border: 1px solid var(--select2-choice-border) !important;
+    color: var(--select2-choice-text) !important;
+    border-radius: 5px !important;
+    font-size: 0.82rem !important;
+    padding: 2px 8px !important;
+    font-weight: 500 !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: var(--select2-choice-remove) !important;
+    margin-right: 5px !important;
+    font-weight: bold !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+    color: #EF4444 !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__clear {
+    color: var(--text-muted) !important;
+    font-size: 1.15rem !important;
+    margin-right: 8px !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    float: right;
+    margin-top: 6px;
+    font-weight: 700;
+    transition: color 0.15s ease;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__clear:hover {
+    color: #EF4444 !important;
+}
+
+.select2-dropdown {
+    background-color: var(--select2-dropdown-bg) !important;
+    border: 1px solid var(--select2-dropdown-border) !important;
+    color: var(--select2-dropdown-text) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+}
+
+.select2-results__option {
+    color: var(--select2-dropdown-text) !important;
+    font-size: 0.88rem;
+    padding: 6px 12px !important;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: var(--select2-dropdown-hover) !important;
+    color: var(--primary-color) !important;
+}
+
+.select2-container--default .select2-results__option[aria-selected=true] {
+    background-color: var(--primary-light) !important;
+}
+
+.select2-search__field {
+    color: var(--text-main) !important;
+}
+
+/* ==========================================================================
+   Map HUD Overlays & Floating Controls
+   ========================================================================== */
+.map-overlay-controls {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 1000;
+}
+
+.map-toggle-group {
+    background: var(--hud-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--hud-border);
+    border-radius: 8px;
+    padding: 3px;
+    box-shadow: var(--hud-shadow);
+}
+
+.btn-map-mode {
+    border: none !important;
+    background: transparent !important;
+    color: var(--text-muted) !important;
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 6px !important;
+    transition: all 0.2s ease;
+}
+
+.btn-map-mode:hover {
+    color: var(--primary-color) !important;
+    background: var(--primary-light) !important;
+}
+
+.btn-map-mode.active {
+    background-color: var(--primary-color) !important;
+    color: var(--btn-predict-text) !important;
+    font-weight: 700;
+    box-shadow: 0 2px 8px var(--primary-shadow);
+}
+
+/* Solar Radiation Gradient Legend */
+.solar-legend {
+    background: var(--hud-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--hud-border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    box-shadow: var(--hud-shadow);
+    font-family: 'Poppins', sans-serif;
+    min-width: 160px;
+}
+
+.solar-legend-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--hud-text);
+    margin-bottom: 6px;
+    text-align: center;
+    letter-spacing: 0.02em;
+}
+
+html.dark .solar-legend-title {
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+}
+
+.solar-legend-bar {
+    height: 12px;
+    border-radius: 4px;
+    background: linear-gradient(to right,
+        rgb(16, 185, 129),
+        rgb(180, 210, 20),
+        rgb(245, 158, 8),
+        rgb(200, 40, 45)
+    );
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.solar-legend-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4px;
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Station Beacon Markers (Gradient View)
+   ========================================================================== */
+.station-beacon-marker {
+    background: transparent !important;
+    border: none !important;
+}
+
+.station-beacon {
+    width: 20px;
+    height: 20px;
+    background: var(--beacon-color, #F59E0B);
+    border: 2.5px solid var(--beacon-border);
+    border-radius: 50%;
+    box-shadow: var(--beacon-glow);
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.station-beacon:hover {
+    transform: scale(1.45);
+    box-shadow: 0 0 16px var(--beacon-color, rgba(255, 255, 255, 0.8)), 0 2px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000 !important;
+}
+
+.beacon-core {
+    width: 6px;
+    height: 6px;
+    background: #FFFFFF;
+    border-radius: 50%;
+    opacity: 0.95;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================================
+   Leaflet Dark Theme Overrides
+   ========================================================================== */
+.leaflet-popup-content-wrapper {
+    background: var(--popup-bg) !important;
+    color: var(--popup-text) !important;
+    border: 1px solid var(--popup-border);
+    box-shadow: var(--popup-shadow) !important;
+    border-radius: 8px !important;
+}
+
+.leaflet-popup-tip {
+    background: var(--popup-bg) !important;
+    border: 1px solid var(--popup-border);
+}
+
+.leaflet-popup-content b,
+.leaflet-popup-content strong {
+    color: var(--primary-color) !important;
+}
+
+.leaflet-bar a {
+    background-color: var(--hud-bg) !important;
+    color: var(--primary-color) !important;
+    border-bottom: 1px solid var(--hud-border) !important;
+    transition: all 0.2s ease;
+}
+
+.leaflet-bar a:hover {
+    background-color: var(--primary-light) !important;
+    color: var(--primary-hover) !important;
+}
+
+.leaflet-container .leaflet-control-attribution {
+    background: var(--hud-bg) !important;
+    color: var(--text-muted) !important;
+    font-size: 0.65rem;
+}
+
+.leaflet-container .leaflet-control-attribution a {
+    color: var(--primary-color) !important;
+}

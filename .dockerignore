@@ -1,0 +1,33 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.git/
+.gitignore
+.env
+mlruns/
+mlruns.db
+mlflow.db
+Demo_video.mp4
+Springer_Nature_LaTeX_Template.pdf
+.system_generated/
+scratch/
+
+# DVC (not needed in production container)
+.dvc/
+.dvcignore
+*.dvc
+dvc.yaml
+dvc.lock
+
+# Dev/training files not needed for serving
+requirements-dev.txt
+tests/
+Other Models/
+Screenshots/
+video/
+Contribute.md
+Learn.md
+LICENSE
+README.md

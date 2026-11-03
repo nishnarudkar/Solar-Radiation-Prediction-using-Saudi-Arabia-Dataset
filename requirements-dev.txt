@@ -1,0 +1,16 @@
+# Production dependencies
+-r requirements.txt
+
+# Hyperparameter Tuning (scipy distributions for RandomizedSearchCV)
+scipy>=1.10.0
+
+# MLOps & Experiment Tracking
+mlflow>=2.10.0
+sqlalchemy>=2.0.0
+
+# Data & Model Version Control
+dvc>=3.30.0
+
+# Testing & CI/CD
+pytest>=7.4.0
+flake8>=6.1.0

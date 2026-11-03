@@ -1,0 +1,23 @@
+stages:
+  tune:
+    cmd: python src/tune.py --model transformer --trials 10 --cv-folds 5
+    deps:
+      - dataset.csv
+      - src/tune.py
+      - src/dataset.py
+    outs:
+      - configs/transformer_best.json
+
+  train:
+    cmd: python src/train.py --model transformer --epochs 25 --cv kfold
+    deps:
+      - dataset.csv
+      - configs/transformer_best.json
+      - src/train.py
+      - src/dataset.py
+      - src/models
+
+  evaluate:
+    cmd: python src/evaluate.py --report
+    deps:
+      - src/evaluate.py

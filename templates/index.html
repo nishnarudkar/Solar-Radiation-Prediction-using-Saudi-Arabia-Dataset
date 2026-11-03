@@ -1,519 +1,339 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saudi Arabia Solar Radiation Prediction</title>
     <link rel="icon" href="data:,">
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Leaflet CSS -->
     <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+    
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="/static/style.css?v=4.3">
+    
+    <!-- Libraries -->
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            font-family: 'Poppins', sans-serif;
-            padding-bottom: 20px;
-        }
-
-        .main-header {
-            color: #1E5631;
-            text-align: center;
-            margin-bottom: 0.5rem;
-            font-size: 2.5rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .sub-header {
-            color: #1E5631;
-            text-align: center;
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        .sub-header a {
-            color: #1E5631;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .sub-header a:hover {
-            color: #2e7d32;
-            text-decoration: underline;
-        }
-
-        #map {
-            height: 500px;
-            width: 100%;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-        }
-
-        #map:hover {
-            transform: translateY(-5px);
-        }
-
-        .map-status {
-            text-align: center;
-            margin-top: 10px;
-            color: #1E5631;
-            font-style: italic;
-        }
-
-        .nav-tabs .nav-link {
-            background-color: #fff;
-            color: #1E5631;
-            border-radius: 10px 10px 0 0;
-            transition: all 0.3s ease;
-        }
-
-        .nav-tabs .nav-link.active {
-            background-color: #1E5631;
-            color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .tab-content {
-            background: #fff;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .summary-table {
-            margin: 20px auto;
-            width: 80%;
-            border-collapse: collapse;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            background: #fff;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .summary-table th {
-            background: linear-gradient(to bottom, #1E5631, #134d27);
-            color: white;
-            padding: 15px;
-            text-align: center;
-        }
-
-        .summary-table td {
-            padding: 15px;
-            text-align: center;
-            transition: background 0.3s ease;
-        }
-
-        .summary-table tr:hover {
-            background-color: #e8f5e9;
-            transform: scale(1.02);
-        }
-
-        select[multiple],
-        .form-control,
-        .form-select {
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        select[multiple]:hover,
-        .form-control:hover,
-        .form-select:hover {
-            border-color: #1E5631;
-            box-shadow: 0 0 10px rgba(30, 86, 49, 0.5);
-        }
-
-        .select2-container--default .select2-selection--multiple {
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .select2-container--default .select2-selection--multiple:hover {
-            border-color: #1E5631;
-            box-shadow: 0 0 10px rgba(30, 86, 49, 0.5);
-        }
-
-        .select2-container {
-            width: 100% !important;
-        }
-
-        .btn-primary,
-        .btn-info {
-            background: linear-gradient(to right, #1E5631, #2e7d32);
-            border: none;
-            border-radius: 25px;
-            padding: 10px 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .btn-info {
-            background: linear-gradient(to right, #0288d1, #4fc3f7);
-        }
-
-        .btn-primary:hover,
-        .btn-info:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .form-text {
-            font-style: italic;
-            margin-bottom: 15px;
-        }
-
-        .select-container {
-            margin-bottom: 15px;
-        }
-
-        label.select-label {
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: block;
-        }
-
-        .toggle-btn {
-            margin: 10px 0;
-            background: #1E5631;
-            color: white;
-        }
-
-        .range-text {
-            font-size: 0.8rem;
-            color: #555;
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="/static/saudi_boundary.js"></script>
 </head>
 
 <body>
-    <div class="container-fluid">
-        <h1 class="main-header my-4">Saudi Arabia Solar Radiation Prediction</h1>
-        <p class="sub-header">Prepared by
-            <a href="https://github.com/nishnarudkar" target="_blank">Nishant Narudkar</a>,
-            <a href="https://github.com/Vatsal211005" target="_blank">Vatsal Parmar</a>,
-            <a href="https://github.com/Metzo64" target="_blank">Maitreya Pawar</a>,
-            <a href="https://github.com/Aamir-Sarang31" target="_blank">Aamir Sarang</a>
-        </p>
+    <div class="container py-4">
+        <!-- Header Section with Theme Toggle -->
+        <header class="header-container position-relative mb-4 text-center">
+            <div class="theme-toggle-wrapper">
+                <span class="theme-mode-text theme-mode-left" id="themeModeLeft">Solar Light</span>
+                <span class="theme-label-icon sun-icon" title="Solar Light Mode">☀️</span>
+                <label class="theme-switch" for="themeToggleCheckbox" aria-label="Toggle light and neon dark mode">
+                    <input type="checkbox" id="themeToggleCheckbox" checked>
+                    <span class="theme-slider">
+                        <span class="theme-ball"></span>
+                    </span>
+                </label>
+                <span class="theme-label-icon moon-icon" title="Neon Dark Mode">🌙</span>
+                <span class="theme-mode-text theme-mode-right" id="themeModeRight">Neon Dark</span>
+            </div>
+            <h1 class="main-title">Saudi Arabia Solar Radiation Prediction</h1>
+            <p class="subtitle">Prepared by 
+                <span class="author-name">Aamir Sarang</span>, 
+                <span class="author-name">Nishant Narudkar</span>, 
+                <span class="author-name">Maitreya Pawar</span>, 
+                <span class="author-name">Vatsal Parmar</span>
+            </p>
+        </header>
 
-        <ul class="nav nav-tabs sticky-top" id="mainTabs" style="top: 0; z-index: 1000; background: #fff;">
-            <li class="nav-item">
-                <a class="nav-link active" href="#mapView" data-bs-toggle="tab">Map View</a>
+        <!-- Navigation Tabs -->
+        <ul class="nav nav-tabs justify-content-start mb-4" id="mainTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="map-tab" data-bs-toggle="tab" data-bs-target="#mapView" type="button" role="tab">Map View</button>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#stationComparison" data-bs-toggle="tab">Station Comparison</a>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="compare-tab" data-bs-toggle="tab" data-bs-target="#stationComparison" type="button" role="tab">Station Comparison</button>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#prediction" data-bs-toggle="tab">Prediction</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#dashboard" data-bs-toggle="tab">Dashboard</a>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="predict-tab" data-bs-toggle="tab" data-bs-target="#prediction" type="button" role="tab">Prediction</button>
             </li>
         </ul>
 
-        <div class="tab-content mt-3">
-            <div class="tab-pane active" id="mapView">
-                <div class="row">
-                    <div class="col-md-8">
-                        <button id="toggleHeatmap" class="btn btn-primary toggle-btn">Toggle Gradient View</button>
-                        <div id="map"></div>
-                        <div id="mapStatus"></div>
+        <div class="tab-content" id="mainTabContent">
+            
+            <!-- TAB 1: Map View -->
+            <div class="tab-pane fade show active" id="mapView" role="tabpanel">
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="map-wrapper position-relative">
+                            <div id="map"></div>
+                            <!-- On-Map Floating Toggle Control -->
+                            <div class="map-overlay-controls">
+                                <div class="btn-group btn-group-sm map-toggle-group" role="group">
+                                    <button type="button" class="btn btn-map-mode active" id="btnModePins">Normal Map</button>
+                                    <button type="button" class="btn btn-map-mode" id="btnModeHeatmap">Gradient View</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="mapStatus" class="map-status"></div>
+                    </div>
+                    <div class="col-lg-4 ps-lg-4">
+                        <h3 class="section-title">Station Details</h3>
+                        <div class="mb-3">
+                            <label class="form-label-custom" for="stationSelect">Select Station:</label>
+                            <select id="stationSelect" class="form-select"></select>
+                        </div>
+                        <div id="stationDetails" class="mt-3">
+                            <div class="station-meta-text"><strong>Station:</strong> <span id="metaStationName">Loading...</span></div>
+                            <div class="station-meta-text"><strong>Latitude:</strong> <span id="metaLat">--</span></div>
+                            <div class="station-meta-text"><strong>Longitude:</strong> <span id="metaLong">--</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monthly Resource Data Section -->
+                <div class="row mt-4 pt-2">
+                    <div class="col-12">
+                        <h4 class="section-title" style="font-size: 1.25rem;">Monthly Resource Data</h4>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label-custom" for="parameterSelect">Select Parameters:</label>
+                                <select id="parameterSelect" class="form-control" multiple></select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label-custom" for="yearSelect">Select Year:</label>
+                                <select id="yearSelect" class="form-select">
+                                    <option value="">All Years</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2021">2021</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-muted small">Scale Mode:</span>
+                            <div class="btn-group btn-group-sm" role="group" id="monthlyScaleToggle">
+                                <button type="button" class="btn btn-scale active" id="btnMonthlyStandard">Standard Values</button>
+                                <button type="button" class="btn btn-scale" id="btnMonthlyNormalized">Normalized (0–100%)</button>
+                            </div>
+                        </div>
+                        <div id="monthlyChart" style="height: 420px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: Station Comparison -->
+            <div class="tab-pane fade" id="stationComparison" role="tabpanel">
+                <h3 class="section-title">Station Comparison</h3>
+                <div class="row g-3 mb-3">
+                    <div class="col-md-5">
+                        <label class="form-label-custom" for="compareStations">Select Stations:</label>
+                        <select id="compareStations" class="form-control" multiple></select>
                     </div>
                     <div class="col-md-4">
-                        <h3>Station Details</h3>
-                        <div class="select-container">
-                            <label class="select-label" for="stationSelect">Select Station:</label>
-                            <select id="stationSelect" class="form-select mb-3" data-bs-toggle="tooltip"
-                                title="Choose a station to view details"></select>
+                        <label class="form-label-custom" for="compareParams">Select Parameters:</label>
+                        <select id="compareParams" class="form-control" multiple></select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label-custom" for="compareYear">Select Year:</label>
+                        <select id="compareYear" class="form-select">
+                            <option value="">All Years</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mt-2 mb-2">
+                    <span class="text-muted small">Scale Mode:</span>
+                    <div class="btn-group btn-group-sm" role="group" id="comparisonScaleToggle">
+                        <button type="button" class="btn btn-scale active" id="btnCompareStandard">Standard Values</button>
+                        <button type="button" class="btn btn-scale" id="btnCompareNormalized">Normalized (0–100%)</button>
+                    </div>
+                </div>
+
+                <div id="comparisonChart" style="height: 420px; width: 100%;"></div>
+
+                <div class="summary-table-container">
+                    <h4 class="section-title" style="font-size: 1.2rem;">Summary Statistics (GHI)</h4>
+                    <div class="table-responsive">
+                        <table class="summary-table" id="comparisonTable">
+                            <thead>
+                                <tr>
+                                    <th>Station</th>
+                                    <th>GHI Mean (kWh/m²)</th>
+                                    <th>GHI Min (kWh/m²)</th>
+                                    <th>GHI Max (kWh/m²)</th>
+                                    <th>GHI Std (kWh/m²)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td colspan="5" class="text-center text-muted">Select stations above to display GHI summary statistics.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: Prediction (Option A: Strict Screenshot Match) -->
+            <div class="tab-pane fade" id="prediction" role="tabpanel">
+                <h3 class="section-title mb-3">GHI Prediction</h3>
+                <input type="hidden" id="predictModelType" value="production">
+
+                <form id="predictionForm">
+                    <div class="row g-3">
+                        <!-- Row 1 -->
+                        <div class="col-md-4">
+                            <label class="form-label-custom">Air Temperature (°C):</label>
+                            <input type="number" step="any" class="form-control" name="Air Temperature (C°)" id="f_temp">
+                            <div class="range-text" id="r_temp">Range: 8.10 - 38.70 °C</div>
                         </div>
-                        <div id="stationDetails"></div>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12">
-                        <h4>Monthly Resource Data</h4>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <div class="select-container">
-                                    <label class="select-label" for="parameterSelect">Select Parameters:</label>
-                                    <select id="parameterSelect" class="form-control" multiple data-bs-toggle="tooltip"
-                                        title="Click to select/deselect multiple parameters"></select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="select-container">
-                                    <label class="select-label" for="mapViewYear">Select Year:</label>
-                                    <select id="mapViewYear" class="form-control" data-bs-toggle="tooltip"
-                                        title="Filter data by year">
-                                        <option value="">All Years</option>
-                                        <option value="2017">2017</option>
-                                        <option value="2018">2018</option>
-                                        <option value="2019">2019</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2021">2021</option>
-                                    </select>
-                                </div>
-                            </div>
+                        <div class="col-md-4">
+                            <label class="form-label-custom">Air Temp Uncertainty (°C):</label>
+                            <input type="number" step="any" class="form-control" name="Air Temperature Uncertainty (C°)" id="f_temp_unc">
+                            <div class="range-text" id="r_temp_unc">Range: 0.50 - 0.60 °C</div>
                         </div>
-                        <div id="monthlyChart" style="width: 100%; height: 500px;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tab-pane" id="stationComparison">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3>Station Comparison</h3>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="select-container">
-                                    <label class="select-label" for="compareStations">Select Stations:</label>
-                                    <select id="compareStations" class="form-control" multiple data-bs-toggle="tooltip"
-                                        title="Click to select/deselect multiple stations"></select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="select-container">
-                                    <label class="select-label" for="compareParams">Select Parameters:</label>
-                                    <select id="compareParams" class="form-control" multiple data-bs-toggle="tooltip"
-                                        title="Click to select/deselect multiple parameters"></select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="select-container">
-                                    <label class="select-label" for="comparisonYear">Select Year:</label>
-                                    <select id="comparisonYear" class="form-control" data-bs-toggle="tooltip"
-                                        title="Filter comparison by year">
-                                        <option value="">All Years</option>
-                                        <option value="2017">2017</option>
-                                        <option value="2018">2018</option>
-                                        <option value="2019">2019</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2021">2021</option>
-                                    </select>
-                                </div>
-                            </div>
+                        <div class="col-md-4">
+                            <label class="form-label-custom">Wind Direction (°N):</label>
+                            <input type="number" step="any" class="form-control" name="Wind Direction at 3m (°N)" id="f_wind_dir">
+                            <div class="range-text" id="r_wind_dir">Range: 0.00 - 359.00 °N</div>
                         </div>
-                        <div id="comparisonCharts"></div>
-                        <h3 class="mt-4">Summary Statistics (GHI)</h3>
-                        <div id="summaryStats"></div>
+
+                        <!-- Row 2 -->
+                        <div class="col-md-4">
+                            <label class="form-label-custom">Wind Direction Uncertainty (°N):</label>
+                            <input type="number" step="any" class="form-control" name="Wind Direction at 3m Uncertainty (°N)" id="f_wind_dir_unc">
+                            <div class="range-text" id="r_wind_dir_unc">Range: 0.00 - 4.80 °N</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label-custom">Wind Speed at 3m (m/s):</label>
+                            <input type="number" step="any" class="form-control" name="Wind Speed at 3m (m/s)" id="f_wind_spd">
+                            <div class="range-text" id="r_wind_spd">Range: 0.00 - 7.80 m/s</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label-custom">Wind Speed Uncertainty (m/s):</label>
+                            <input type="number" step="any" class="form-control" name="Wind Speed at 3m Uncertainty (m/s)" id="f_wind_spd_unc">
+                            <div class="range-text" id="r_wind_spd_unc">Range: 0.00 - 0.10 m/s</div>
+                        </div>
+
+                        <!-- Row 3 -->
+                        <div class="col-md-4">
+                            <label class="form-label-custom">Wind Speed Std Dev (m/s):</label>
+                            <input type="number" step="any" class="form-control" name="Wind Speed at 3m (std dev) (m/s)" id="f_wind_std">
+                            <div class="range-text" id="r_wind_std">Range: 0.00 - 4.50 m/s</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label-custom">DHI (Wh/m²):</label>
+                            <input type="number" step="any" class="form-control" name="DHI (Wh/m2)" id="f_dhi">
+                            <div class="range-text" id="r_dhi">Range: 865.80 - 6394.60 Wh/m²</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label-custom">DHI Uncertainty (Wh/m²):</label>
+                            <input type="number" step="any" class="form-control" name="DHI Uncertainty (Wh/m2)" id="f_dhi_unc">
+                            <div class="range-text" id="r_dhi_unc">Range: 37.30 - 1344.60 Wh/m²</div>
+                        </div>
+
+                        <!-- Row 4 -->
+                        <div class="col-md-4">
+                            <label class="form-label-custom">Standard Deviation DHI (Wh/m²):</label>
+                            <input type="number" step="any" class="form-control" name="Standard Deviation DHI (Wh/m2)" id="f_std_dhi">
+                            <div class="range-text" id="r_std_dhi">Range: 145.30 - 1648.50 Wh/m²</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label-custom">DNI (Wh/m²):</label>
+                            <input type="number" step="any" class="form-control" name="DNI (Wh/m2)" id="f_dni">
+                            <div class="range-text" id="r_dni">Range: 0.30 - 9517.00 Wh/m²</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label-custom">DNI Uncertainty (Wh/m²):</label>
+                            <input type="number" step="any" class="form-control" name="DNI Uncertainty (Wh/m2)" id="f_dni_unc">
+                            <div class="range-text" id="r_dni_unc">Range: 0.20 - 2115.50 Wh/m²</div>
+                        </div>
+
+                        <!-- Row 5 -->
+                        <div class="col-md-4">
+                            <label class="form-label-custom">Standard Deviation DNI (Wh/m²):</label>
+                            <input type="number" step="any" class="form-control" name="Standard Deviation DNI (Wh/m2)" id="f_std_dni">
+                            <div class="range-text" id="r_std_dni">Range: 0.40 - 3282.20 Wh/m²</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label-custom">GHI Uncertainty (Wh/m²):</label>
+                            <input type="number" step="any" class="form-control" name="GHI Uncertainty (Wh/m2)" id="f_ghi_unc">
+                            <div class="range-text" id="r_ghi_unc">Range: 98.40 - 5249.60 Wh/m²</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label-custom">Standard Deviation GHI (Wh/m²):</label>
+                            <input type="number" step="any" class="form-control" name="Standard Deviation GHI (Wh/m2)" id="f_std_ghi">
+                            <div class="range-text" id="r_std_ghi">Range: 117.50 - 1720.70 Wh/m²</div>
+                        </div>
+
+                        <!-- Row 6 -->
+                        <div class="col-md-4">
+                            <label class="form-label-custom">Peak Wind Speed at 3m (m/s):</label>
+                            <input type="number" step="any" class="form-control" name="Peak Wind Speed at 3m (m/s)" id="f_peak_wind">
+                            <div class="range-text" id="r_peak_wind">Range: 0.00 - 40.50 m/s</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label-custom">Peak Wind Speed Uncertainty (m/s):</label>
+                            <input type="number" step="any" class="form-control" name="Peak Wind Speed at 3m Uncertainty (m/s)" id="f_peak_wind_unc">
+                            <div class="range-text" id="r_peak_wind_unc">Range: 0.00 - 0.20 m/s</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label-custom">Relative Humidity (%):</label>
+                            <input type="number" step="any" class="form-control" name="Relative Humidity (%)" id="f_hum">
+                            <div class="range-text" id="r_hum">Range: 8.30 - 95.90 %</div>
+                        </div>
+
+                        <!-- Row 7 -->
+                        <div class="col-md-4">
+                            <label class="form-label-custom">Relative Humidity Uncertainty (%):</label>
+                            <input type="number" step="any" class="form-control" name="Relative Humidity Uncertainty (%)" id="f_hum_unc">
+                            <div class="range-text" id="r_hum_unc">Range: 2.80 - 3.70 %</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label-custom">Barometric Pressure (hPa):</label>
+                            <input type="number" step="any" class="form-control" name="Barometric Pressure (mB (hPa equiv))" id="f_pressure">
+                            <div class="range-text" id="r_pressure">Range: 831.30 - 1019.70 hPa</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label-custom">Barometric Pressure Uncertainty (hPa):</label>
+                            <input type="number" step="any" class="form-control" name="Barometric Pressure Uncertainty (mB (hPa equiv))" id="f_pressure_unc">
+                            <div class="range-text" id="r_pressure_unc">Range: 4.10 - 6.20 hPa</div>
+                        </div>
                     </div>
+
+                    <div class="d-flex gap-3 mt-4">
+                        <button type="button" id="loadDefaultsBtn" class="btn-defaults">Load Default Values</button>
+                        <button type="submit" class="btn-predict">Predict GHI</button>
+                    </div>
+                </form>
+
+                <!-- Prediction Result Box -->
+                <div id="predictionResult" class="prediction-alert mt-4">
+                    Predicted GHI: <span id="predValueText" style="font-weight: 700;">--</span> kWh/m²
                 </div>
             </div>
 
-            <div class="tab-pane" id="prediction">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3>GHI Prediction</h3>
-                        <form id="predictionForm">
-                            <div class="row row-cols-1 row-cols-md-3 g-4">
-                                <!-- Row 1 -->
-                                <div class="col">
-                                    <label class="form-label" for="airTemp">Air Temperature (°C):</label>
-                                    <input type="number" id="airTemp" name="Air Temperature (C°)" class="form-control"
-                                        placeholder="Enter air temperature" step="0.01" data-bs-toggle="tooltip"
-                                        title="Enter temperature in Celsius" required>
-                                    <small class="range-text" id="tempRange"></small>
-                                </div>
-                                <div class="col">
-                                    <label class="form-label" for="airTempUncertainty">Air Temp Uncertainty
-                                        (°C):</label>
-                                    <input type="number" id="airTempUncertainty" name="Air Temperature Uncertainty (C°)"
-                                        class="form-control" placeholder="Enter air temp uncertainty" step="0.01"
-                                        data-bs-toggle="tooltip" title="Enter temperature uncertainty in Celsius"
-                                        required>
-                                    <small class="range-text" id="tempUncertaintyRange"></small>
-                                </div>
-                                <div class="col">
-                                    <label class="form-label" for="windDir">Wind Direction (°N):</label>
-                                    <input type="number" id="windDir" name="Wind Direction at 3m (°N)"
-                                        class="form-control" placeholder="Enter wind direction" step="0.01"
-                                        data-bs-toggle="tooltip" title="Enter wind direction in degrees North" required>
-                                    <small class="range-text" id="windDirRange"></small>
-                                </div>
-                                <!-- Row 2 -->
-                                <div class="col">
-                                    <label class="form-label" for="windDirUncertainty">Wind Direction Uncertainty
-                                        (°N):</label>
-                                    <input type="number" id="windDirUncertainty"
-                                        name="Wind Direction at 3m Uncertainty (°N)" class="form-control"
-                                        placeholder="Enter wind dir uncertainty" step="0.01" data-bs-toggle="tooltip"
-                                        title="Enter wind direction uncertainty in degrees North" required>
-                                    <small class="range-text" id="windDirUncertaintyRange"></small>
-                                </div>
-                                <div class="col">
-                                    <label class="form-label" for="windSpeed">Wind Speed at 3m (m/s):</label>
-                                    <input type="number" id="windSpeed" name="Wind Speed at 3m (m/s)"
-                                        class="form-control" placeholder="Enter wind speed" step="0.01"
-                                        data-bs-toggle="tooltip" title="Enter wind speed in m/s" required>
-                                    <small class="range-text" id="windRange"></small>
-                                </div>
-                                <div class="col">
-                                    <label class="form-label" for="windSpeedUncertainty">Wind Speed Uncertainty
-                                        (m/s):</label>
-                                    <input type="number" id="windSpeedUncertainty"
-                                        name="Wind Speed at 3m Uncertainty (m/s)" class="form-control"
-                                        placeholder="Enter wind speed uncertainty" step="0.01" data-bs-toggle="tooltip"
-                                        title="Enter wind speed uncertainty in m/s" required>
-                                    <small class="range-text" id="windSpeedUncertaintyRange"></small>
-                                </div>
-                                <!-- Row 3 -->
-                                <div class="col">
-                                    <label class="form-label" for="windSpeedStdDev">Wind Speed Std Dev (m/s):</label>
-                                    <input type="number" id="windSpeedStdDev" name="Wind Speed at 3m (std dev) (m/s)"
-                                        class="form-control" placeholder="Enter wind speed std dev" step="0.01"
-                                        data-bs-toggle="tooltip" title="Enter wind speed standard deviation in m/s"
-                                        required>
-                                    <small class="range-text" id="windSpeedStdDevRange"></small>
-                                </div>
-                                <div class="col">
-                                    <label class="form-label" for="dhi">DHI (Wh/m²):</label>
-                                    <input type="number" id="dhi" name="DHI (Wh/m2)" class="form-control"
-                                        placeholder="Enter DHI" step="0.01" data-bs-toggle="tooltip"
-                                        title="Diffuse Horizontal Irradiance" required>
-                                    <small class="range-text" id="dhiRange"></small>
-                                </div>
-                                <div class="col">
-                                    <label class="form-label" for="dhiUncertainty">DHI Uncertainty (Wh/m²):</label>
-                                    <input type="number" id="dhiUncertainty" name="DHI Uncertainty (Wh/m2)"
-                                        class="form-control" placeholder="Enter DHI uncertainty" step="0.01"
-                                        data-bs-toggle="tooltip" title="Diffuse Horizontal Irradiance uncertainty"
-                                        required>
-                                    <small class="range-text" id="dhiUncertaintyRange"></small>
-                                </div>
-                                <!-- Row 4 -->
-                                <div class="col">
-                                    <label class="form-label" for="dhiStdDev">Standard Deviation DHI (Wh/m²):</label>
-                                    <input type="number" id="dhiStdDev" name="Standard Deviation DHI (Wh/m2)"
-                                        class="form-control" placeholder="Enter DHI std dev" step="0.01"
-                                        data-bs-toggle="tooltip"
-                                        title="Standard deviation of Diffuse Horizontal Irradiance" required>
-                                    <small class="range-text" id="dhiStdDevRange"></small>
-                                </div>
-                                <div class="col">
-                                    <label class="form-label" for="dni">DNI (Wh/m²):</label>
-                                    <input type="number" id="dni" name="DNI (Wh/m2)" class="form-control"
-                                        placeholder="Enter DNI" step="0.01" data-bs-toggle="tooltip"
-                                        title="Direct Normal Irradiance" required>
-                                    <small class="range-text" id="dniRange"></small>
-                                </div>
-                                <div class="col">
-                                    <label class="form-label" for="dniUncertainty">DNI Uncertainty (Wh/m²):</label>
-                                    <input type="number" id="dniUncertainty" name="DNI Uncertainty (Wh/m2)"
-                                        class="form-control" placeholder="Enter DNI uncertainty" step="0.01"
-                                        data-bs-toggle="tooltip" title="Direct Normal Irradiance uncertainty" required>
-                                    <small class="range-text" id="dniUncertaintyRange"></small>
-                                </div>
-                                <!-- Row 5 -->
-                                <div class="col">
-                                    <label class="form-label" for="dniStdDev">Standard Deviation DNI (Wh/m²):</label>
-                                    <input type="number" id="dniStdDev" name="Standard Deviation DNI (Wh/m2)"
-                                        class="form-control" placeholder="Enter DNI std dev" step="0.01"
-                                        data-bs-toggle="tooltip" title="Standard deviation of Direct Normal Irradiance"
-                                        required>
-                                    <small class="range-text" id="dniStdDevRange"></small>
-                                </div>
-                                <div class="col">
-                                    <label class="form-label" for="ghiUncertainty">GHI Uncertainty (Wh/m²):</label>
-                                    <input type="number" id="ghiUncertainty" name="GHI Uncertainty (Wh/m2)"
-                                        class="form-control" placeholder="Enter GHI uncertainty" step="0.01"
-                                        data-bs-toggle="tooltip" title="Global Horizontal Irradiance uncertainty"
-                                        required>
-                                    <small class="range-text" id="ghiUncertaintyRange"></small>
-                                </div>
-                                <div class="col">
-                                    <label class="form-label" for="ghiStdDev">Standard Deviation GHI (Wh/m²):</label>
-                                    <input type="number" id="ghiStdDev" name="Standard Deviation GHI (Wh/m2)"
-                                        class="form-control" placeholder="Enter GHI std dev" step="0.01"
-                                        data-bs-toggle="tooltip"
-                                        title="Standard deviation of Global Horizontal Irradiance" required>
-                                    <small class="range-text" id="ghiStdDevRange"></small>
-
-                                </div>
-                                <!-- Row 6 -->
-                                <div class="col">
-                                    <label class="form-label" for="peakWindSpeed">Peak Wind Speed at 3m (m/s):</label>
-                                    <input type="number" id="peakWindSpeed" name="Peak Wind Speed at 3m (m/s)"
-                                        class="form-control" placeholder="Enter peak wind speed" step="0.01"
-                                        data-bs-toggle="tooltip" title="Enter peak wind speed in m/s" required>
-                                    <small class="range-text" id="peakWindSpeedRange"></small>
-                                </div>
-                                <div class="col">
-                                    <label class="form-label" for="peakWindSpeedUncertainty">Peak Wind Speed Uncertainty
-                                        (m/s):</label>
-                                    <input type="number" id="peakWindSpeedUncertainty"
-                                        name="Peak Wind Speed at 3m Uncertainty (m/s)" class="form-control"
-                                        placeholder="Enter peak wind speed uncertainty" step="0.01"
-                                        data-bs-toggle="tooltip" title="Enter peak wind speed uncertainty in m/s"
-                                        required>
-                                    <small class="range-text" id="peakWindSpeedUncertaintyRange"></small>
-                                </div>
-                                <div class="col">
-                                    <label class="form-label" for="humidity">Relative Humidity (%):</label>
-                                    <input type="number" id="humidity" name="Relative Humidity (%)" class="form-control"
-                                        placeholder="Enter relative humidity" step="0.01" data-bs-toggle="tooltip"
-                                        title="Enter humidity percentage" required>
-                                    <small class="range-text" id="humidityRange"></small>
-                                </div>
-                                <!-- Row 7 -->
-                                <div class="col">
-                                    <label class="form-label" for="humidityUncertainty">Relative Humidity Uncertainty
-                                        (%):</label>
-                                    <input type="number" id="humidityUncertainty"
-                                        name="Relative Humidity Uncertainty (%)" class="form-control"
-                                        placeholder="Enter humidity uncertainty" step="0.01" data-bs-toggle="tooltip"
-                                        title="Enter humidity uncertainty percentage" required>
-                                    <small class="range-text" id="humidityUncertaintyRange"></small>
-                                </div>
-                                <div class="col">
-                                    <label class="form-label" for="pressure">Barometric Pressure (hPa):</label>
-                                    <input type="number" id="pressure" name="Barometric Pressure (mB (hPa equiv))"
-                                        class="form-control" placeholder="Enter barometric pressure" step="0.01"
-                                        data-bs-toggle="tooltip" title="Enter pressure in hPa" required>
-                                    <small class="range-text" id="pressureRange"></small>
-                                </div>
-                                <div class="col">
-                                    <label class="form-label" for="pressureUncertainty">Barometric Pressure Uncertainty
-                                        (hPa):</label>
-                                    <input type="number" id="pressureUncertainty"
-                                        name="Barometric Pressure Uncertainty (mB (hPa equiv))" class="form-control"
-                                        placeholder="Enter pressure uncertainty" step="0.01" data-bs-toggle="tooltip"
-                                        title="Enter pressure uncertainty in hPa" required>
-                                    <small class="range-text" id="pressureUncertaintyRange"></small>
-                                </div>
-                            </div>
-                            <div class="col-12 mt-4">
-                                <button type="button" id="loadAveragesBtn" class="btn btn-info me-2">Load Default
-                                    Values</button>
-                                <button type="submit" class="btn btn-primary">Predict GHI</button>
-                            </div>
-                        </form>
-                        <div id="predictionResult" class="mt-3 alert alert-info"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tab-pane" id="dashboard">
-                <div class="row">
-                    <div class="col-md-12">
-                        <iframe src="https://api.wandb.ai/links/nishnarudkar-d-y-patil-university/l4xo0wax"
-                            style="border:none;height:100vh;width:100%"></iframe>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="/static/app.js"></script>
+    <!-- Frontend Logic -->
+    <script src="/static/app.js?v=3.7"></script>
+</body>
 
 </html>

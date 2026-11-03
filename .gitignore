@@ -14,3 +14,32 @@ env/
 # IDE
 .vscode/
 .idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# MLflow (regenerated locally via training)
+mlflow.db
+mlruns/
+
+# Byte-compiled / optimized
+*.pyo
+*.pyd
+*.so
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Pytest cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/

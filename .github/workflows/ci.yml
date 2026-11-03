@@ -1,0 +1,50 @@
+name: Continuous Integration & MLflow Promotion Gate
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test-and-gate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install torch --extra-index-url https://download.pytorch.org/whl/cpu
+        pip install -r requirements-dev.txt
+
+    - name: Code Quality & Linting (Flake8)
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+    - name: Run Test Suite (Pytest)
+      run: |
+        python -m pytest tests/ -v
+
+    - name: Fast Deep Learning Training Smoke Test (MLflow Tracking)
+      run: |
+        python src/train.py --model transformer --epochs 3 --cv kfold
+
+    - name: MLflow Model Registry Promotion Gate
+      run: |
+        if [ "${{ github.ref }}" = "refs/heads/main" ] || [ "${{ github.ref }}" = "refs/heads/master" ]; then
+          python src/evaluate.py --gate --model transformer --checkpoint model/transformer_model.pt --scaler model/transformer_scaler.pkl
+        else
+          python src/evaluate.py --gate --model transformer --checkpoint model/transformer_model.pt --scaler model/transformer_scaler.pkl --dry-run
+        fi

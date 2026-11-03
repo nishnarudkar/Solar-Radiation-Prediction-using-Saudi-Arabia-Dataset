@@ -1,0 +1,10 @@
+{
+    "embed_dim": 32,
+    "hidden_dim": 64,
+    "num_layers": 1,
+    "dropout": 0.3,
+    "bidirectional": true,
+    "lr": 0.0036185365902050856,
+    "weight_decay": 2.5696152202902177e-05,
+    "batch_size": 16
+}
